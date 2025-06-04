@@ -2,6 +2,7 @@ import {useQuery} from "@tanstack/react-query";
 import {useNavigate,useParams} from "react-router-dom";
 import {getCookie,setCookie} from "../util/cookie";
 import apiClient from "../../http-commons";
+import FoodMap from "./FoodMap";
 /*
       useQuery : 서버와 연결 => 서버에서 데이터를 전송
       useNavigate : 화면 이동 => history
@@ -32,7 +33,63 @@ function FoodDetail(){
     return (
         <div className={"container"}>
             <div className={"row"}>
-
+              <table className="table">
+                  <tbody>
+                    <tr>
+                        <td width={"30%"} rowSpan={"8"} className={"text-center"}>
+                            <img src={"https://www.menupan.com"+data.data.poster} style={{"width":"320px","height":"430px"}}/>
+                        </td>
+                        <td colSpan={"2"}>
+                            <h3>{data.data.name}&nbsp;<span style={{"color":"orange"}}>{data.data.score}</span> </h3>
+                        </td>
+                    </tr>
+                    <tr>
+                      <th width={"20%"} style={{"color":"gray"}}>주소</th>
+                      <td width={"50%"}>{data.data.address}</td>
+                    </tr>
+                    <tr>
+                        <th width={"20%"} style={{"color":"gray"}}>전화</th>
+                        <td width={"50%"}>{data.data.phone}</td>
+                    </tr>
+                    <tr>
+                        <th width={"20%"} style={{"color":"gray"}}>음식종류</th>
+                        <td width={"50%"}>{data.data.type}</td>
+                    </tr>
+                    <tr>
+                        <th width={"20%"} style={{"color":"gray"}}>가격대</th>
+                        <td width={"50%"}>{data.data.price}</td>
+                    </tr>
+                    <tr>
+                        <th width={"20%"} style={{"color":"gray"}}>주차</th>
+                        <td width={"50%"}>{data.data.parking}</td>
+                    </tr>
+                    <tr>
+                        <th width={"20%"} style={{"color":"gray"}}>영업시간</th>
+                        <td width={"50%"}>{data.data.time}</td>
+                    </tr>
+                    <tr>
+                        <th width={"20%"} style={{"color":"gray"}}>테마</th>
+                        <td width={"50%"}>{data.data.theme}</td>
+                    </tr>
+                  </tbody>
+              </table>
+              <table className="table">
+                  <tbody>
+                  <tr>
+                      <td>{data.data.content}</td>
+                  </tr>
+                  <tr>
+                      <td className={"text-right"}>
+                          <button className={"btn-sm btn-danger"}>목록</button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                       <FoodMap address={data.data.address} name={data.data.name}/>
+                      </td>
+                  </tr>
+                  </tbody>
+              </table>
             </div>
         </div>
     )

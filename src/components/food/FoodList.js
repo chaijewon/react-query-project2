@@ -82,7 +82,7 @@ function FoodList() {
             <div className="row">
                 {
                      food_list.map((food, index) =>
-                       <ListImage name={food.name} poster={"https://www.menupan.com"+food.poster} key={index} />
+                       <ListImage no={food.fno} name={food.name} poster={"https://www.menupan.com"+food.poster} key={index} />
                      )
                 }
             </div>
