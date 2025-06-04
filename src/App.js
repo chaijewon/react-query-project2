@@ -1,24 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
-
+import {BrowserRouter as Router,Routes,Route} from "react-router";
+import {Fragment} from "react";
+import FoodList from "./components/food/FoodList";
+// <FoodList/> => return에 설정한 HTML을 받는다 => 메소드 호출
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Fragment>
+        <Router>
+          <Routes>
+            <Route path="/" element={<FoodList/>} />
+          </Routes>
+        </Router>
+      </Fragment>
   );
 }
 
