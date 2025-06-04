@@ -1,9 +1,8 @@
-import {useState,Fragment} from "react";
-import {useQuery, useQueryClient} from "@tanstack/react-query";
-import {Link} from "react-router-dom";
+import {useState} from "react";
+import {useQuery} from "@tanstack/react-query";
 import apiClient from "../../http-commons";
-import ListImage from "./ListImage";
-import PagePrint from "./PagePrint";
+import ListImage from "../food/ListImage";
+import PagePrint from "../food/PagePrint";
 /*
     3버전 : react-query
     4버전 : tanstack-query
@@ -49,16 +48,16 @@ import PagePrint from "./PagePrint";
                   ----------
                   const [변수 , set변수]=useState(초기값)
  */
-function FoodList() {
+function InfoList() {
     // 반드시 return을 포함 => HTML을 전송 => index.html에 출력
     const [curpage, setCurpage] = useState(1);
     // curpage변경시마다 => 재호출
     //
     const {isLoading, isError,error,data} = useQuery({
-          queryKey:["food-list",curpage],
-          queryFn: async (query) => {
-              return await apiClient.get(`/food/list/${curpage}`);
-          }
+        queryKey:["food-list",curpage],
+        queryFn: async (query) => {
+            return await apiClient.get(`/info/list/${curpage}`);
+        }
     });
     if(isLoading)
         return <h3 className={"text-center"}>서버 데이터 전송 지연...</h3>
@@ -81,9 +80,9 @@ function FoodList() {
         <div className="container">
             <div className="row">
                 {
-                     food_list.map((food, index) =>
-                       <ListImage name={food.name} poster={"https://www.menupan.com"+food.poster} key={index} />
-                     )
+                    food_list.map((info, index) =>
+                        <ListImage name={info.title} poster={info.poster} key={index} />
+                    )
                 }
             </div>
             <div className="row text-center" style={{"marginTop":"10px"}}>
@@ -93,5 +92,4 @@ function FoodList() {
     )
 }
 
-export default FoodList;
-
+export default InfoList;
