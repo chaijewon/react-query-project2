@@ -19,7 +19,7 @@ function BoardInsert() {
       useQuery : SELECT
       useMutation : INSERT / UPDATE / DELETE
      */
-    const {isLoading,mutate:boardInsert}=useMutation({
+    const {mutate:boardInsert}=useMutation({
             mutationFn: async () => {
                 return await apiClient.post("/board/insert", {
                     name: name,
@@ -29,8 +29,9 @@ function BoardInsert() {
                 })
             },
             onSuccess: (res) => {
+                console.log(res)
                 if (res.data.msg === 'yes') {
-                    nav('/board/list')
+                    window.location.href="/board/list"
                 } else {
                     alert(res.data.msg)
                 }
@@ -70,6 +71,7 @@ function BoardInsert() {
     return (
         <div className={"container"}>
             <div className={"row"}>
+                <h3 className={"text-center"}>글쓰기</h3>
                 <table className={"table"}>
                     <tbody>
                     <tr>
