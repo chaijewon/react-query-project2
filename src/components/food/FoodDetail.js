@@ -30,6 +30,9 @@ function FoodDetail(){
     console.log(data)
     setCookie("food"+fno,data.data.poster) // 쿠키 저장
     // 화면 출력
+    const listMove=()=>{
+        nav("/")
+    }
     return (
         <div className={"container"}>
             <div className={"row"}>
@@ -80,7 +83,7 @@ function FoodDetail(){
                   </tr>
                   <tr>
                       <td className={"text-right"}>
-                          <button className={"btn-sm btn-danger"}>목록</button>
+                          <button className={"btn-sm btn-danger"} onClick={listMove}>목록</button>
                       </td>
                   </tr>
                   <tr>

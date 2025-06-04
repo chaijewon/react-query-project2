@@ -4,6 +4,9 @@ import {Link} from "react-router-dom";
 import apiClient from "../../http-commons";
 import ListImage from "./ListImage";
 import PagePrint from "./PagePrint";
+import {useCookies} from "react-cookie";
+import {getAll} from "../util/cookie";
+
 /*
     3버전 : react-query
     4버전 : tanstack-query
@@ -50,6 +53,23 @@ import PagePrint from "./PagePrint";
                   const [변수 , set변수]=useState(초기값)
  */
 function FoodList() {
+    // 쿠키 읽기
+    const cookies = getAll();
+    const key = Object.keys(cookies);
+    const value=Object.values(cookies);
+
+    const images=[]
+    const  keys=[]
+
+    let j=0
+    for(let i=key.length-1;i>=0;i--){
+        if(key[i].startsWith("food") && j<6){
+            images.push(value[i])
+            keys.push(key[i])
+            j++
+        }
+    }
+
     // 반드시 return을 포함 => HTML을 전송 => index.html에 출력
     const [curpage, setCurpage] = useState(1);
     // curpage변경시마다 => 재호출
@@ -88,6 +108,17 @@ function FoodList() {
             </div>
             <div className="row text-center" style={{"marginTop":"10px"}}>
                 <PagePrint data={data.data} setCurpage={setCurpage} />
+            </div>
+            <div className="row" style={{"marginTop":"10px"}}>
+                <h3>최근 방문 맛집</h3>
+                     {
+                        images && images.map((image, index) =>
+                         <Link to={"/food/detail/"+keys[index].replace("food","")} key={index}>
+                          <img src={"http://www.menupan.com"+image}
+                             style={{"width":"150px",height:"120px","marginLeft":"5px"}} />
+                         </Link>
+                         )
+                     }
             </div>
         </div>
     )
